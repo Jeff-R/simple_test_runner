@@ -1,3 +1,3 @@
 module SimpleTestRunner
-  VERSION = "0.5.6"
+  VERSION = "0.5.8"
 end

@@ -4,6 +4,8 @@ require "bundler/setup"
 require_relative 'runner_opts'
 require 'rb-inotify'
 
+require 'io/wait'   # for io.ready?
+
 # Bundler.require        # See http://technotales.wordpress.com/2010/08/22/bundler-without-rails/
 
 # code originally swiped shamelessly from https://github.com/ewollesen/autotest-inotify/blob/master/lib/autotest/inotify.rb
@@ -40,16 +42,16 @@ module SimpleTestRunner
         make_config_file
         return
       end
-      unless @options.configfileok
-        puts "Couldn't find the configuration file."
-        puts "  The config file is where you place the command that"
-        puts "  you want the program to run."
-        puts
-        puts "  It should be a text file called .simpletestrunnerrc."
-        puts "  To generate the file, run 'simpletestrunner -c'"
-        puts "  then edit it by hand."
-        return
-      end
+      # unless @options.configfileok
+      #   puts "Couldn't find the configuration file."
+      #   puts "  The config file is where you place the command that"
+      #   puts "  you want the program to run."
+      #   puts
+      #   puts "  It should be a text file called .simpletestrunnerrc."
+      #   puts "  To generate the file, run 'simpletestrunner -c'"
+      #   puts "  then edit it by hand."
+      #   return
+      # end
       unless @options.parsed.ok
         @options.print_usage
         return
@@ -60,8 +62,12 @@ module SimpleTestRunner
       end
 
       if not @options.parsed.fake
-        setup_monitor
-        @notifier.run
+        if @options.parsed.dirs_to_monitor.length > 0
+          setup_monitor 
+          while not STDIN.ready?
+            @notifier.process
+          end
+        end
       end
     end
 

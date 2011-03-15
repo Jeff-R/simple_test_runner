@@ -70,7 +70,7 @@ module SimpleTestRunner
       @parsed.verbose          ||= false
       @parsed.make_config_file ||= false
       @parsed.show_config      ||= false
-      @parsed.dirs_to_monitor  ||= ['foo', 'bar', 'baz']
+      @parsed.dirs_to_monitor  ||= []
       @parsed.ok               ||= false
       @parsed.command_str      ||= "echo 'Dir changed'"
       @parsed.fake             ||= false
