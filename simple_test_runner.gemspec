@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Jeff Roush"]
   s.email       = ["jeff@jeffroush.com"]
   s.homepage    = ""
-  s.summary     = %q{Monitors directories; runs a command when it sees a chane.}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Monitors directories; runs a command when it sees a change.}
+  s.description = %q{Very simple program to monitor directories and run tests.}
 
   s.rubyforge_project = "simple_test_runner"
 

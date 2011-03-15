@@ -16,11 +16,18 @@ module SimpleTestRunner
     end
 
     def make_config_file
-      puts "make file"
+      if File.exists? @options.config_file_name
+        puts "Are you sure? (y for yes)"
+        a = gets.strip.downcase
+        return unless a == "y"
+      end
+      File.open(@options.config_file_name, 'w+') do |file| 
+        file.puts @options.to_yaml
+      end
     end
 
     def run
-      @options = RunnerOpts.new Array.new @args
+      @options = RunnerOpts.new @args
       if @options.parsed.make_config_file
         make_config_file
         return
