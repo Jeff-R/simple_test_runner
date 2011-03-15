@@ -2,10 +2,12 @@
 require "rubygems"
 require "bundler/setup"
 require_relative 'runner_opts'
+require 'rb-inotify'
 
 Bundler.require        # See http://technotales.wordpress.com/2010/08/22/bundler-without-rails/
 
-# code swiped shamelessly from https://github.com/ewollesen/autotest-inotify/blob/master/lib/autotest/inotify.rb
+# code originally swiped shamelessly from https://github.com/ewollesen/autotest-inotify/blob/master/lib/autotest/inotify.rb
+# Mostly morphed since then ...
 
 module SimpleTestRunner
 
@@ -27,6 +29,12 @@ module SimpleTestRunner
     end
 
     def run
+      if not running_linux?
+        puts "Sorry. This program currently only runs in Linux."
+        puts "If you want other platforms to be supported, please help out!"
+        return
+      end
+
       @options = RunnerOpts.new @args
       if @options.parsed.make_config_file
         make_config_file
@@ -52,7 +60,8 @@ module SimpleTestRunner
       end
 
       if not @options.parsed.fake
-        system "#{@options.parsed.command_str}"
+        setup_monitor
+        @notifier.run
       end
     end
 
@@ -60,21 +69,10 @@ module SimpleTestRunner
       /linux/i === RbConfig::CONFIG["host_os"]
     end
 
-    # @dirs_to_monitor = %w( test1 test2  )
-    @dirs_to_monitor = [ "test1", "test2" ]
-
     def setup_monitor
-      dirs_to_monitor = [ "test1", "test2" ]
       @notifier = INotify::Notifier.new
-      # Watch directories to catch delete/move swap patterns as well as direct
-      # modifications.  This handles, e.g. :w in vim.
-      dirs_to_monitor.each do |dir|
-        @notifier.watch(dir, :all_events) do |event|
-          if event_of_interest?(event.flags) &&
-            files.include?(event.absolute_name)
-            handle_file_event(event)
-          end
-        end
+      @options.parsed.dirs_to_monitor.each do |dir|
+        foo = @notifier.watch(dir, :modify, :recursive) { run_command }
       end
     end
 
@@ -82,49 +80,9 @@ module SimpleTestRunner
       flags.include?(:modify) || flags.include?(:moved_to)
     end
 
-    def handle_file_event(event)
-      puts ("Saw a change!")
-      # @changed_files[event.absolute_name] = Time.now
-    end
-
-    def select_all_tests
-      map_files_to_tests_for(find_files).each do |filename|
-        self.files_to_test[filename]
-      end
-    end
-
-    def map_files_to_tests_for(files)
-      files.map {|filename, mtime| test_files_for(filename)}.flatten.uniq
-    end
-
-    def select_tests_for_changed_files
-      map_files_to_tests_for(@changed_files).each do |filename|
-        self.files_to_test[filename]
-      end
-    end
-
-
-    def setup_inotify
-      @notifier = INotify::Notifier.new
-      files = self.find_files.keys
-      dirs = files.map{|f| File.dirname( f )}.uniq
-      # Watch directories to catch delete/move swap patterns as well as direct
-      # modifications.  This handles, e.g. :w in vim.
-      dirs.each do |dir|
-        @notifier.watch(dir, :all_events) do |event|
-          if event_of_interest?(event.flags) &&
-            files.include?(event.absolute_name)
-            handle_file_event(event)
-          end
-        end
-      end
+    def run_command
+        system "#{@options.parsed.command_str}"
     end
 
   end
-
-
 end
-
-# tr = TestRunner.new
-# tr.setup_monitor
-

@@ -81,28 +81,30 @@ module SimpleTestRunner
         # Command to run
         opts.on("-c", "--command COMMAND", String, "Command to run") do |commandstr|
           @parsed.command_str = commandstr
+          @parsed.ok = true
         end
 
         # Create a config file
-        opts.on("-C", "--configfile", "create a config file") do 
-          @parsed.make_config_file = true
-          @parsed.ok = true
-        end
+        # opts.on("-C", "--configfile", "create a config file") do 
+        #   @parsed.make_config_file = true
+        #   @parsed.ok = true
+        # end
 
         # List of dirs.
         opts.on("-d", "--dirs x,y,z", Array, "example 'list' of arguments") do |list|
           @parsed.dirs_to_monitor = list
-        end
-
-        # show help
-        opts.on('-h', "--help", "Print out this message") do |url|
-          puts opts
           @parsed.ok = true
         end
 
         # fake run
         opts.on("-f", "--fake", "Fake run: don't actually monitor the dirs") do 
           @parsed.fake = true
+        end
+
+        # show help
+        opts.on('-h', "--help", "Print out this message") do |url|
+          puts opts
+          @parsed.ok = true
         end
 
         # Show configuration
