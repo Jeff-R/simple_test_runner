@@ -43,8 +43,16 @@ module SimpleTestRunner
         return
       end
       unless @options.parsed.ok
-        print_usage
+        @options.print_usage
         return
+      end
+
+      if @options.parsed.show_config
+        @options.show_config
+      end
+
+      if not @options.parsed.fake
+        system "#{@options.parsed.command_str}"
       end
     end
 
