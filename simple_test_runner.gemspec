@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::CURRENT
   s.authors     = ["Jeff Roush"]
   s.email       = ["jeff@jeffroush.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/Jeff-R/simple_test_runner"
   s.summary     = %q{Monitors directories; runs a command when it sees a change.}
   s.description = %q{Very simple command-line program for Linux to monitor directories and run tests.}
 
