@@ -4,7 +4,7 @@ require "bundler/setup"
 require_relative 'runner_opts'
 require 'rb-inotify'
 
-Bundler.require        # See http://technotales.wordpress.com/2010/08/22/bundler-without-rails/
+# Bundler.require        # See http://technotales.wordpress.com/2010/08/22/bundler-without-rails/
 
 # code originally swiped shamelessly from https://github.com/ewollesen/autotest-inotify/blob/master/lib/autotest/inotify.rb
 # Mostly morphed since then ...
