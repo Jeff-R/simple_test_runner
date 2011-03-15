@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "simple_test_runner"
 
-  s.add_dependency 'rb-inotify'
+  s.add_dependency 'rb-inotify', '> 0.8.0'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
