@@ -76,7 +76,7 @@ module SimpleTestRunner
       @parsed.fake             ||= false
 
       @optionParser = OptionParser.new do |opts|
-        opts.banner = "Usage: simpletestrunner [options]"
+        opts.banner = "Usage: simple_test_runner [options]"
 
         # Command to run
         opts.on("-c", "--command COMMAND", String, "Command to run") do |commandstr|
