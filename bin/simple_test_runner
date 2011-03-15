@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+require 'fileutils'
+
+$: << File.expand_path(File.dirname(__FILE__) + "/../lib")
+
+require "simple_test_runner"
+
+
+runner = SimpleTestRunner::TestRunner.new ARGV
+runner.run
+
