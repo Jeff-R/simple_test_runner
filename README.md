@@ -43,7 +43,7 @@ To quit, type control-c in the terminal running the program, and wait for the ne
 
 * Build 
 
-    cd simple_test_runner/
+    cd simple_test_runner
     rake build
 
 * Install (with rvm)
