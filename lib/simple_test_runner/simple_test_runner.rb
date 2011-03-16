@@ -1,12 +1,7 @@
-#!/home/jeff/.rvm/rubies/ruby-1.9.2-p0/bin/ruby
-require "rubygems"
-require "bundler/setup"
 require 'rb-inotify'
 require 'io/wait'   # for io.ready?
 
-require 'runner_opts'
-
-# Bundler.require        # See http://technotales.wordpress.com/2010/08/22/bundler-without-rails/
+require 'simple_test_runner/runner_opts'
 
 # code originally swiped shamelessly from https://github.com/ewollesen/autotest-inotify/blob/master/lib/autotest/inotify.rb
 # Mostly morphed since then ...
