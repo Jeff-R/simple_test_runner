@@ -23,6 +23,7 @@ So, to run all specs when files in the app/ or lib/ directories are updated:
 
     simple_test_runner -d app,lib -c "rspec spec"
 
+To stop simple_test_runner, use control-c. You might have to then modify one of the files being monitored so it wakes up and notices the control-c. And, yes, this is a pretty ugly way to stop it. I'm going to try to fix that.
 
 ## But why?
 
