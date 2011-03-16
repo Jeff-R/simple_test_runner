@@ -1,5 +1,12 @@
 # simple_test_runner is a very simple replacement for autotest.
 
+In short: 
+
+* It monitors a set of directories.
+* If a file changes in one of those directories, simple_test_runner runs an arbitrary command.
+* Normally, that command would run a unit test or spec. But it could be anything.
+* simple_test_runner only runs on Linux. Any help generalizing it to other platforms would be very nice.
+
 ## Using simple_test_runner
 
 Running simple_test_runner without any options will print out this message:
@@ -39,21 +46,21 @@ To quit, type control-c in the terminal running the program, and wait for the ne
 
 * Get 
 
-    git clone git://github.com/Jeff-R/simple_test_runner.git
+      git clone git://github.com/Jeff-R/simple_test_runner.git
 
 * Build 
 
-    cd simple_test_runner
-    rake build
+      cd simple_test_runner
+      rake build
 
 * Install (with rvm)
 
-    rvm use gemset global
-    rake install
+      rvm use gemset global
+      rake install
 
 * Install (without rvm)
 
-    sudo gem install pkg/simple_test_runner_x.gem
+      sudo gem install pkg/simple_test_runner_x.gem
 
 
 
