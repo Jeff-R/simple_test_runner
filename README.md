@@ -1,4 +1,4 @@
-# simple_test_runner is a very simple replacement for autotest.
+## simple_test_runner is a very simple replacement for autotest.
 
 In short: 
 
@@ -43,6 +43,13 @@ Any time a file in the watched directory changes, the command is run.
 To quit, type control-c in the terminal running the program, and wait for the next directory change to wake it up. Kinda klunky, I know. If anyone knows a better way to handle it, I'm all ears.
 
 ## Installation
+
+### As a gem
+
+      gem install simple_test_runner
+
+
+### From github
 
 * Get 
 
